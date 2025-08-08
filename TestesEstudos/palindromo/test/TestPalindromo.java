@@ -1,16 +1,19 @@
-package testes.dominio.palindromo.test;
+package Tests.dominio.palindromo.test;
 
-import testes.dominio.palindromo.domain.IsPalindrome;
-import testes.dominio.palindromo.domain.PalindromeMaker;
+
+import Tests.dominio.palindromo.domain.IsPalindrome;
+import java.util.Scanner;
 
 public class TestPalindromo {
     public static void main(String[] args) {
-        PalindromeMaker palindromo = new PalindromeMaker("texto");
-        IsPalindrome TorF = new IsPalindrome(palindromo.getTexto());
 
-        //palindromo.destrinchar();
-       // palindromo.imprimir();
-       // TorF.isPalindrome();
-        TorF.searchPalindrome();
+        Scanner scanner = new Scanner(System.in);
+        IsPalindrome Test1 = new IsPalindrome();
+
+        System.out.println("Digite a palavra ou frase que você quer encontrar o palindromo: ");
+        String texto = scanner.nextLine();
+        Test1.setTexto(texto);
+
+        Test1.searchPalindrome();
     }
 }
