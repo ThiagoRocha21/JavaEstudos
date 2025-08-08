@@ -7,9 +7,18 @@ public class IsPalindrome extends PalindromeMaker {
 
 
     public void isPalindrome() {
-        for (int i = 0; i < palavras.size(); i++) {
+        for (int i = 0; i < palavras.size(); i++) { //verifica se ha palindromos na lista de palavras 
             if (palavras.get(i).equals(palavrasInversas.get(i)) && palavras.get(i).length() >= 3) {
                 palindromos.add(palavras.get(i));
+            }
+        }
+        if (!palindromos.isEmpty()) { //garante que o nao serao apresentados os subpalindromos presentos no palindromo
+            for (int i = (palindromos.size() - 1); i > 0 ; i--) {
+                String palindromoMaior = palindromos.get(i-1);
+                String palindromoMenor = palindromos.get(i);
+                if (palindromoMaior.contains(palindromoMenor)) {
+                    palindromos.remove(i);
+                }
             }
         }
     }
@@ -21,7 +30,7 @@ public class IsPalindrome extends PalindromeMaker {
         palavras.add(textoDigitado);
         for (int k = (textoDigitado.length() - 1); k >= 3; k--) {
             String excluir = palavras.getLast();
-            if(excluir.length() >= 3) {
+            if (excluir.length() >= 3) {
                 StringBuilder newText = new StringBuilder(excluir);
                 newText.deleteCharAt((excluir.length() - 1));
                 String alterWord = newText.toString();
@@ -35,27 +44,26 @@ public class IsPalindrome extends PalindromeMaker {
                 newText.deleteCharAt(0);
                 String alterWord = newText.toString();
                 palavras.add(alterWord);
-            }
-            else{
+            } else {
                 break;
             }
         }
     }
 
-    public void letterSmashFrontBack(){
+    public void letterSmashFrontBack() {
         String textoDigitado = getTexto();
         palavrasEmFormacao.add(textoDigitado);
-        while(palavrasEmFormacao.getLast().length() > 3){
+        while (palavrasEmFormacao.getLast().length() > 3) {
             String excluir = palavrasEmFormacao.getLast();
             StringBuilder excluirLetrasFront = new StringBuilder(excluir);
             excluirLetrasFront.deleteCharAt(0);
             String semChar0 = excluirLetrasFront.toString();
             palavras.add(semChar0);
             palavrasEmFormacao.add(semChar0);
-            while(palavras.getLast().length() > 4) {
+            while (palavras.getLast().length() > 4) {
                 String excluirBack = palavras.getLast();
                 StringBuilder excluirLetrasBack = new StringBuilder(excluirBack);
-                if(excluirBack.length() > 0) {
+                if (excluirBack.length() > 0) {
                     excluirLetrasBack.deleteCharAt(excluirBack.length() - 1);
                     String palavraFinal = excluirLetrasBack.toString();
                     palavras.add(palavraFinal);
@@ -74,12 +82,11 @@ public class IsPalindrome extends PalindromeMaker {
             listaCharInversa.clear();
         }
         isPalindrome();
-        if(palindromos.isEmpty()){
+        if (palindromos.isEmpty()) {
             System.out.println("Não há palíndromos na palavra.");
-        }
-        else{
-            for(String palindromo : palindromos){
-                System.out.println("Há um palíndromo na palavra: "+palindromo);
+        } else {
+            for (String palindromo : palindromos) {
+                System.out.println("Há um palíndromo na palavra: " + palindromo);
             }
         }
     }
