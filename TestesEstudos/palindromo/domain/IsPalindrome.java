@@ -1,17 +1,14 @@
-package testes.dominio.palindromo.domain;
+package Tests.dominio.palindromo.domain;
 
 import java.util.ArrayList;
 
 public class IsPalindrome extends PalindromeMaker {
     ArrayList<String> palindromos = new ArrayList<>();
 
-    public IsPalindrome(String texto) {
-        super(texto);
-    }
 
     public void isPalindrome() {
         for (int i = 0; i < palavras.size(); i++) {
-            if (palavras.get(i).equals(palavrasInversas.get(i))) {
+            if (palavras.get(i).equals(palavrasInversas.get(i)) && palavras.get(i).length() >= 3) {
                 palindromos.add(palavras.get(i));
             }
         }
@@ -24,30 +21,57 @@ public class IsPalindrome extends PalindromeMaker {
         palavras.add(textoDigitado);
         for (int k = (textoDigitado.length() - 1); k >= 3; k--) {
             String excluir = palavras.getLast();
-            StringBuilder newText = new StringBuilder(excluir);
-            newText.deleteCharAt((excluir.length() - 1));
-            String alterWord = newText.toString();
-            palavras.add(alterWord);
+            if(excluir.length() >= 3) {
+                StringBuilder newText = new StringBuilder(excluir);
+                newText.deleteCharAt((excluir.length() - 1));
+                String alterWord = newText.toString();
+                palavras.add(alterWord);
+            }
         } //mesma coisa que o for de cima, porém, da esquerda para a direita.
-        palavras.add(textoDigitado);
         for (int k = 0; k < (textoDigitado.length() - 3); k++) {
             String excluir = palavras.getLast();
             StringBuilder newText = new StringBuilder(excluir);
-            newText.deleteCharAt(0);
-            String alterWord = newText.toString();
-            palavras.add(alterWord);
+            if (excluir.length() > 0) {
+                newText.deleteCharAt(0);
+                String alterWord = newText.toString();
+                palavras.add(alterWord);
+            }
+            else{
+                break;
+            }
+        }
+    }
+
+    public void letterSmashFrontBack(){
+        String textoDigitado = getTexto();
+        palavrasEmFormacao.add(textoDigitado);
+        while(palavrasEmFormacao.getLast().length() > 3){
+            String excluir = palavrasEmFormacao.getLast();
+            StringBuilder excluirLetrasFront = new StringBuilder(excluir);
+            excluirLetrasFront.deleteCharAt(0);
+            String semChar0 = excluirLetrasFront.toString();
+            palavras.add(semChar0);
+            palavrasEmFormacao.add(semChar0);
+            while(palavras.getLast().length() > 4) {
+                String excluirBack = palavras.getLast();
+                StringBuilder excluirLetrasBack = new StringBuilder(excluirBack);
+                if(excluirBack.length() > 0) {
+                    excluirLetrasBack.deleteCharAt(excluirBack.length() - 1);
+                    String palavraFinal = excluirLetrasBack.toString();
+                    palavras.add(palavraFinal);
+                }
+            }
         }
     }
 
     public void searchPalindrome() {
         letterSmash();
+        letterSmashFrontBack();
         for (String palavra : palavras) {
             setTexto(palavra);
             destrinchar();
-            lista.clear();
-            listaInversa.clear();
-            System.out.println(palavras);
-            System.out.println(palavrasInversas);
+            listaChar.clear();
+            listaCharInversa.clear();
         }
         isPalindrome();
         if(palindromos.isEmpty()){
@@ -60,3 +84,4 @@ public class IsPalindrome extends PalindromeMaker {
         }
     }
 }
+
