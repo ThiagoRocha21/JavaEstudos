@@ -1,0 +1,1 @@
+Projeto para achar os palíndromos existentes dentro de uma string junta.
