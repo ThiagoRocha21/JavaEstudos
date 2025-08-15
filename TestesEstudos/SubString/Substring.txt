@@ -1,0 +1,1 @@
+Código que busca a maior sequencia de substring sem caracter repetidos dentro de uma String.
